@@ -1,7 +1,14 @@
 package org.hhhonzik.starrocks;
 // import com.facebook.airlift.stats.cardinality.HyperLogLog;
 
+import static io.airlift.slice.Slices.utf8Slice;
+import static io.airlift.slice.Slices.wrappedBuffer;
+
+import java.util.Base64;
+
 import com.facebook.airlift.stats.cardinality.HyperLogLog;
+
+import io.airlift.slice.Slice;
 
 public class TrinoHLLCardinality {
 
@@ -13,8 +20,9 @@ public class TrinoHLLCardinality {
     }
 
     public final Long evaluate(String serializedHll) {
-        // return HyperLogLog.newInstance(serializedHll).cardinality();
-        return 123L;
+        byte[] bytes = Base64.getDecoder().decode(serializedHll);
+        Slice s = wrappedBuffer(bytes);
+        return HyperLogLog.newInstance(s).cardinality();
     }
 
     private static int log2Ceiling(int value) {
