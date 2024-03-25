@@ -1,17 +1,18 @@
 package org.hhhonzik.starrocks;
 
-
 import com.facebook.airlift.stats.cardinality.HyperLogLog;
 import java.util.Base64;
 import static io.airlift.slice.Slices.wrappedBuffer;
-
 
 import io.airlift.slice.Slice;
 
 public class TrinoHLLMerge {
     public static class State {
         HyperLogLog hll = HyperLogLog.newInstance(standardErrorToBuckets(DEFAULT_STANDARD_ERROR));
-        public int serializeLength() { return 4; }
+
+        public int serializeLength() {
+            return standardErrorToBuckets(DEFAULT_STANDARD_ERROR);
+        }
     }
 
     public State create() {
@@ -26,7 +27,7 @@ public class TrinoHLLMerge {
             byte[] bytes = Base64.getDecoder().decode(serializedHll);
             Slice s = wrappedBuffer(bytes);
             HyperLogLog other = HyperLogLog.newInstance(s);
-    
+
             state.hll.mergeWith(other);
         }
     }
