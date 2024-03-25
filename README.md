@@ -16,7 +16,7 @@ properties (
 CREATE GLOBAL AGGREGATE FUNCTION TRINO_HLL_MERGE(STRING)
 RETURNS STRING
 properties (
-    "symbol" = "org.hhhonzik.starrocks.TrinoHLLCardinality", 
+    "symbol" = "org.hhhonzik.starrocks.TrinoHLLMerge", 
     "type" = "StarrocksJar",
     "file" = "https://github.com/hhhonzik/starrocks-trino-hll/raw/main/target/starrocks_trino_hll-1.0-SNAPSHOT-jar-with-dependencies.jar"
 );
