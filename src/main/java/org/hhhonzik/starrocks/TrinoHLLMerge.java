@@ -11,7 +11,7 @@ public class TrinoHLLMerge {
         HyperLogLog hll = HyperLogLog.newInstance(standardErrorToBuckets(DEFAULT_STANDARD_ERROR));
 
         public int serializeLength() {
-            return standardErrorToBuckets(DEFAULT_STANDARD_ERROR);
+            return hll.estimatedSerializedSize();
         }
     }
 

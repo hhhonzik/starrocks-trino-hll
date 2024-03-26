@@ -16,7 +16,7 @@ public class TrinoHLLCardinality {
         return log2Ceiling((int) Math.ceil(1.0816 / (maxStandardError * maxStandardError)));
     }
 
-    public final java.lang.Long evaluate(java.lang.String serializedHll) {
+    public final Long evaluate(String serializedHll) {
         byte[] bytes = Base64.getDecoder().decode(serializedHll);
         Slice s = wrappedBuffer(bytes);
         return HyperLogLog.newInstance(s).cardinality();
