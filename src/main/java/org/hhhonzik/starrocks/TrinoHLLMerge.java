@@ -43,8 +43,8 @@ public class TrinoHLLMerge {
         state.hll.mergeWith(other);
     }
 
-    public Long finalize(State state) {
-        return state.hll.cardinality();
+    public String finalize(State state) {
+        return Base64.getEncoder().encodeToString(state.hll.serialize().getBytes());
     }
 
     // taken from prestodb/presto
