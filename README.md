@@ -1,5 +1,4 @@
-# WIP support for Hyperloglog in Starrocks via Java UDF
-
+# Support for Athena / Trino / Presto Hyperloglog on Starrocks via UDF
 
 ## Installation on Starrocks
 
@@ -22,10 +21,13 @@ properties (
 );
 ```
 
-
 ## USAGE
 
 ```sql
 SELECT TRINO_HLL_CARDINALITY(from_binary(YOUR_HLL_COLUMN, 'encode64'))
 SELECT TRINO_HLL_MERGE(from_binary(YOUR_HLL_COLUMN, 'encode64'))
+
+--- you can combine them
+
+select trino_hll_cardinality(trino_hll_merge(from_binary(my_hll_column, 'encode64'))) as unique_count from `glue_catalog`...
 ```
