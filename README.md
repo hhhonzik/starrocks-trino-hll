@@ -8,7 +8,7 @@ RETURNS LARGEINT
 properties (
     "symbol" = "org.hhhonzik.starrocks.TrinoHLLCardinality", 
     "type" = "StarrocksJar",
-    "file" = "https://github.com/hhhonzik/starrocks-trino-hll/raw/main/target/starrocks_trino_hll-1.0-SNAPSHOT-jar-with-dependencies.jar"
+    "file" = "https://github.com/hhhonzik/starrocks-trino-hll/releases/download/v0.0.1/starrocks_trino_hll-0.0.1-jar-with-dependencies.jar"
 );
 ```
 ```sql
@@ -17,7 +17,7 @@ RETURNS STRING
 properties (
     "symbol" = "org.hhhonzik.starrocks.TrinoHLLMerge", 
     "type" = "StarrocksJar",
-    "file" = "https://github.com/hhhonzik/starrocks-trino-hll/raw/main/target/starrocks_trino_hll-1.0-SNAPSHOT-jar-with-dependencies.jar"
+    "file" = "https://github.com/hhhonzik/starrocks-trino-hll/releases/download/v0.0.1/starrocks_trino_hll-0.0.1-jar-with-dependencies.jar"
 );
 ```
 
