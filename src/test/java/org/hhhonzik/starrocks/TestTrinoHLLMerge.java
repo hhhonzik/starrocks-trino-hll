@@ -46,7 +46,7 @@ public class TestTrinoHLLMerge {
 
         t.update(s2, "AgwxAAKmBwsAxDQMgMruEQBKRRhDUnwYgYzpGgD6mCeBrv9AwL1CSEAlOFCAmmVSQES5UsBt1lrArHpfgh9/X0E8jmBB6cNlA3CudIHvYXbAfzh9gPjsicIwpJFAbOecABhqngB3P5/BrvigQPWNpsLPxKaAuXGnQIBUqUCbKqrA22ytQSVIsEDb9rECjta9gDHnvYRRFsAARtHEgtxeyoCoytDB5fPWQZP810GgudiAHjHbgMRq6wBu6vGAwZTywKzO+AS/+/g=");
 
-        ByteBuffer b = ByteBuffer.allocate(s2.serializeLength() - 1);
+        ByteBuffer b = ByteBuffer.allocate(s2.serializeLength());
         t.serialize(s2, b);
         b.position(0); // reset position to 0 (start of buffer)
         
