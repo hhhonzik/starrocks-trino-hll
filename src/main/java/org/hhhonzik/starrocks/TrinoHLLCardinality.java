@@ -17,9 +17,13 @@ public class TrinoHLLCardinality {
     }
 
     public final Long evaluate(String serializedHll) {
-        byte[] bytes = Base64.getDecoder().decode(serializedHll);
-        Slice s = wrappedBuffer(bytes);
-        return HyperLogLog.newInstance(s).cardinality();
+        if (serializedHll != null) {
+            byte[] bytes = Base64.getDecoder().decode(serializedHll);
+            Slice s = wrappedBuffer(bytes);
+            return HyperLogLog.newInstance(s).cardinality();
+        }
+        
+        return null;
     }
 
     private static int log2Ceiling(int value) {
