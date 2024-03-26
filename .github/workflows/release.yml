@@ -28,11 +28,10 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-
     - name: Relase
       uses: 'marvinpinto/action-automatic-releases@latest'
       with:
         repo_token: '${{ secrets.GITHUB_TOKEN }}'
         prerelease: false
         files: |
-          target/starrocks_trino_hll-1.0-SNAPSHOT-jar-with-dependencies.jar
+          target/*-jar-with-dependencies.jar
