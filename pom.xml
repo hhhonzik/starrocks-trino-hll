@@ -6,7 +6,7 @@
 
     <groupId>org.hhhonzik</groupId>
     <artifactId>starrocks_trino_hll</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1</version>
 
     <properties>
         <dep.airlift.version>0.209</dep.airlift.version>
