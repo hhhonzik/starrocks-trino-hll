@@ -13,15 +13,11 @@ package org.hhhonzik.starrocks;
  * limitations under the License.
  */
 
-import static io.airlift.slice.Slices.wrappedBuffer;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.nio.ByteBuffer;
 
 import org.junit.jupiter.api.Test;
-
-import io.airlift.slice.BasicSliceInput;
-import io.airlift.slice.Slice;
 
 public class TestTrinoHLLMerge {
     @Test

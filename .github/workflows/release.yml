@@ -27,7 +27,10 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn package
+      with:
+        name: jar
+        path: target/*-jar-with-dependencies.jar
     
     - name: Relase
       uses: 'marvinpinto/action-automatic-releases@latest'
