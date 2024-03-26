@@ -37,7 +37,9 @@ jobs:
     - name: Relase
       uses: 'marvinpinto/action-automatic-releases@latest'
       with:
+        automatic_release_tag: "latest"
+        prerelease: true
         repo_token: '${{ secrets.GITHUB_TOKEN }}'
-        prerelease: false
+        # prerelease: false
         files: |
           target/*-jar-with-dependencies.jar
