@@ -10,8 +10,10 @@ name: Java CI with Maven
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - "main"
+    # tags:
+    #   - 'v*'
 
 jobs:
   build:
