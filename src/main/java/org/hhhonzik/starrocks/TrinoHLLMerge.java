@@ -11,7 +11,7 @@ public class TrinoHLLMerge {
         HyperLogLog hll = HyperLogLog.newInstance(standardErrorToBuckets(DEFAULT_STANDARD_ERROR));
 
         public int serializeLength() {
-            return hll.estimatedSerializedSize();
+            return hll.estimatedSerializedSize() - 1;
         }
     }
 
@@ -37,6 +37,7 @@ public class TrinoHLLMerge {
     }
 
     public void merge(State state, java.nio.ByteBuffer buffer) {
+        buffer.position(0);
         Slice s = wrappedBuffer(buffer);
         HyperLogLog other = HyperLogLog.newInstance(s);
 
