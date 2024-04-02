@@ -3,29 +3,29 @@
 ## Installation on Starrocks
 
 ```sql
-CREATE GLOBAL FUNCTION TRINO_HLL_CARDINALITY(STRING)
+CREATE GLOBAL FUNCTION CARDINALITY(STRING)
 RETURNS LARGEINT
 properties (
     "symbol" = "org.hhhonzik.starrocks.TrinoHLLCardinality", 
     "type" = "StarrocksJar",
-    "file" = "https://github.com/hhhonzik/starrocks-trino-hll/releases/download/v0.0.1/starrocks_trino_hll-0.0.1-jar-with-dependencies.jar"
+    "file" = "https://github.com/hhhonzik/starrocks-trino-hll/releases/download/v0.0.4/starrocks_trino_hll-build-jar-with-dependencies.jar"
 );
 ```
 ```sql
-CREATE GLOBAL AGGREGATE FUNCTION TRINO_HLL_MERGE(STRING)
+CREATE GLOBAL AGGREGATE FUNCTION MERGE(STRING)
 RETURNS STRING
 properties (
     "symbol" = "org.hhhonzik.starrocks.TrinoHLLMerge", 
     "type" = "StarrocksJar",
-    "file" = "https://github.com/hhhonzik/starrocks-trino-hll/releases/download/v0.0.1/starrocks_trino_hll-0.0.1-jar-with-dependencies.jar"
+    "file" = "https://github.com/hhhonzik/starrocks-trino-hll/releases/download/v0.0.4/starrocks_trino_hll-build-jar-with-dependencies.jar"
 );
 ```
 
 ## USAGE
 
 ```sql
-SELECT TRINO_HLL_CARDINALITY(from_binary(YOUR_HLL_COLUMN, 'encode64'))
-SELECT TRINO_HLL_MERGE(from_binary(YOUR_HLL_COLUMN, 'encode64'))
+SELECT CARDINALITY(from_binary(YOUR_HLL_COLUMN, 'encode64'))
+SELECT MERGE(from_binary(YOUR_HLL_COLUMN, 'encode64'))
 
 --- you can combine them
 
