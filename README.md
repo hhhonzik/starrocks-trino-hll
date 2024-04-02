@@ -4,7 +4,7 @@
 
 ```sql
 CREATE GLOBAL FUNCTION CARDINALITY(STRING)
-RETURNS LARGEINT
+RETURNS BIGINT
 properties (
     "symbol" = "org.hhhonzik.starrocks.TrinoHLLCardinality", 
     "type" = "StarrocksJar",
