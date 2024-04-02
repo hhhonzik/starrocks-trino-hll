@@ -1,6 +1,8 @@
 package org.hhhonzik.starrocks;
 
 import com.facebook.airlift.stats.cardinality.HyperLogLog;
+
+import java.nio.ByteBuffer;
 import java.util.Base64;
 import static io.airlift.slice.Slices.wrappedBuffer;
 
@@ -37,9 +39,12 @@ public class TrinoHLLMerge {
     }
 
     public void merge(State state, java.nio.ByteBuffer buffer) {
-        buffer.position(0);
-        buffer.limit(buffer.capacity() - 1);
-        Slice s = wrappedBuffer(buffer  );
+        ByteBuffer bb = buffer.asReadOnlyBuffer();
+        bb.position(0);
+        byte[] b = new byte[bb.limit()];
+        bb.get(b, 0, b.length);
+
+        Slice s = wrappedBuffer(b);
         HyperLogLog other = HyperLogLog.newInstance(s);
 
         state.hll.mergeWith(other);
