@@ -13,7 +13,7 @@ public class TrinoHLLMerge {
         HyperLogLog hll = HyperLogLog.newInstance(standardErrorToBuckets(DEFAULT_STANDARD_ERROR));
 
         public int serializeLength() {
-            return hll.estimatedSerializedSize();
+            return hll.estimatedSerializedSize() - 1;
         }
     }
 
@@ -43,11 +43,14 @@ public class TrinoHLLMerge {
         bb.position(0);
         byte[] b = new byte[bb.limit()];
         bb.get(b, 0, b.length);
-
         Slice s = wrappedBuffer(b);
-        HyperLogLog other = HyperLogLog.newInstance(s);
+        try {
+            HyperLogLog other = HyperLogLog.newInstance(s);
+            state.hll.mergeWith(other);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e.getMessage() + " HLL: " + Base64.getEncoder().encodeToString(s.getBytes()));
+        }
 
-        state.hll.mergeWith(other);
     }
 
     public String finalize(State state) {
