@@ -39,15 +39,12 @@ public class TrinoHLLMerge {
     }
 
     public void merge(State state, java.nio.ByteBuffer buffer) {
-        ByteBuffer bb = buffer.asReadOnlyBuffer();
-        byte[] b = new byte[bb.limit() - 1];
-        bb.get(b, bb.position(), b.length);
-        Slice s = wrappedBuffer(b);
+        Slice s = wrappedBuffer(buffer);
         try {
             HyperLogLog other = HyperLogLog.newInstance(s);
             state.hll.mergeWith(other);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e.getMessage() + " HLL: " + Base64.getEncoder().encodeToString(b));
+            throw new IllegalArgumentException(e.getMessage() + " HLL: " + Base64.getEncoder().encodeToString(buffer.array()));
         }
     }
 
