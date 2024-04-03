@@ -39,6 +39,9 @@ public class TrinoHLLMerge {
     }
 
     public void merge(State state, java.nio.ByteBuffer buffer) {
+        // idk why / where this is coming from
+        buffer.limit(buffer.limit() - 1);
+
         Slice s = wrappedBuffer(buffer);
         try {
             HyperLogLog other = HyperLogLog.newInstance(s);
