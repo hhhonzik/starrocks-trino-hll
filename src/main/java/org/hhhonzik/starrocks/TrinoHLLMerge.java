@@ -4,6 +4,9 @@ import com.facebook.airlift.stats.cardinality.HyperLogLog;
 
 import java.nio.ByteBuffer;
 import java.util.Base64;
+
+import org.checkerframework.checker.formatter.qual.Format;
+import com.facebook.airlift.stats.cardinality.HyperLogLog;
 import static io.airlift.slice.Slices.wrappedBuffer;
 
 import io.airlift.slice.Slice;
@@ -40,7 +43,9 @@ public class TrinoHLLMerge {
 
     public void merge(State state, java.nio.ByteBuffer buffer) {
         // idk why / where this is coming from
-        buffer.limit(buffer.limit() - 1);
+        if (buffer.get(buffer.position()) == Integer.valueOf(2).byteValue()) {
+            buffer.limit(buffer.limit() - 1);
+        }
 
         Slice s = wrappedBuffer(buffer);
         try {

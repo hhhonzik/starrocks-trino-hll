@@ -20,6 +20,11 @@
             <artifactId>stats</artifactId>
             <version>${dep.airlift.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.facebook.airlift</groupId>
+            <artifactId>stats</artifactId>
+            <version>${dep.airlift.version}</version>
+        </dependency>
 
 
         <dependency>
