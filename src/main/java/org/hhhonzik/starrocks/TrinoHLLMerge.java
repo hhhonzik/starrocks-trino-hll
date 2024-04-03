@@ -43,11 +43,16 @@ public class TrinoHLLMerge {
 
     public void merge(State state, java.nio.ByteBuffer buffer) {
         // idk why / where this is coming from
-        if (buffer.get(buffer.position()) == Integer.valueOf(2).byteValue()) {
-            buffer.limit(buffer.limit() - 1);
+        ByteBuffer buf = buffer.slice();
+        if (buf.get(buf.position()) == Integer.valueOf(2).byteValue()) {
+            buf.limit(buf.limit() - 1);
         }
 
-        Slice s = wrappedBuffer(buffer);
+        if (buf.isDirect()) {
+            System.err.println("Direct Buffer");
+        }
+
+        Slice s = wrappedBuffer(buf);
         try {
             HyperLogLog other = HyperLogLog.newInstance(s);
             state.hll.mergeWith(other);
