@@ -5,10 +5,9 @@ import com.facebook.airlift.stats.cardinality.HyperLogLog;
 import java.nio.ByteBuffer;
 import java.util.Base64;
 
-import org.checkerframework.checker.formatter.qual.Format;
-import com.facebook.airlift.stats.cardinality.HyperLogLog;
 import static io.airlift.slice.Slices.wrappedBuffer;
 
+import io.airlift.slice.SizeOf;
 import io.airlift.slice.Slice;
 
 public class TrinoHLLMerge {
@@ -16,7 +15,7 @@ public class TrinoHLLMerge {
         HyperLogLog hll = HyperLogLog.newInstance(standardErrorToBuckets(DEFAULT_STANDARD_ERROR));
 
         public int serializeLength() {
-            return 4 + hll.estimatedSerializedSize();
+            return SizeOf.SIZE_OF_INT + hll.estimatedSerializedSize();
         }
     }
 
@@ -37,13 +36,13 @@ public class TrinoHLLMerge {
         }
     }
 
-    public void serialize(State state, java.nio.ByteBuffer buff) {
+    public void serialize(State state, ByteBuffer buff) {
         byte[] serialized = state.hll.serialize().getBytes();
         buff.putInt(serialized.length);
         buff.put(serialized);
     }
 
-    public void merge(State state, java.nio.ByteBuffer buffer) {
+    public void merge(State state, ByteBuffer buffer) {
         // idk why / where this is coming from
         int len = buffer.getInt();
         byte[] bytes = new byte[len];
