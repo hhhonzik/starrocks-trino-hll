@@ -52,7 +52,7 @@ public class TrinoHLLMerge {
             HyperLogLog other = HyperLogLog.newInstance(s);
             state.hll.mergeWith(other);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(e.getMessage() + " HLL: " + Base64.getEncoder().encodeToString(buffer.array()));
+            throw new IllegalArgumentException(e.getMessage() + " HLL: " + Base64.getEncoder().encodeToString(s.getBytes()));
         }
     }
 
