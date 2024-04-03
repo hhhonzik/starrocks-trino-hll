@@ -20,6 +20,7 @@ public class TrinoHLLCardinality {
         if (serializedHll != null) {
             byte[] bytes = Base64.getDecoder().decode(serializedHll);
             Slice s = wrappedBuffer(bytes);
+
             return HyperLogLog.newInstance(s).cardinality();
         }
         

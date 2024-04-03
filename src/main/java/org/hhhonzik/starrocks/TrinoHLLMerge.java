@@ -16,7 +16,7 @@ public class TrinoHLLMerge {
         HyperLogLog hll = HyperLogLog.newInstance(standardErrorToBuckets(DEFAULT_STANDARD_ERROR));
 
         public int serializeLength() {
-            return hll.estimatedSerializedSize();
+            return 4 + hll.estimatedSerializedSize();
         }
     }
 
@@ -38,21 +38,18 @@ public class TrinoHLLMerge {
     }
 
     public void serialize(State state, java.nio.ByteBuffer buff) {
-        buff.put(state.hll.serialize().getBytes());
+        byte[] serialized = state.hll.serialize().getBytes();
+        buff.putInt(serialized.length);
+        buff.put(serialized);
     }
 
     public void merge(State state, java.nio.ByteBuffer buffer) {
         // idk why / where this is coming from
-        ByteBuffer buf = buffer.slice();
-        if (buf.get(buf.position()) == Integer.valueOf(2).byteValue()) {
-            buf.limit(buf.limit() - 1);
-        }
+        int len = buffer.getInt();
+        byte[] bytes = new byte[len];
+        buffer.get(bytes);
 
-        if (buf.isDirect()) {
-            System.err.println("Direct Buffer");
-        }
-
-        Slice s = wrappedBuffer(buf);
+        Slice s = wrappedBuffer(bytes);
         try {
             HyperLogLog other = HyperLogLog.newInstance(s);
             state.hll.mergeWith(other);
