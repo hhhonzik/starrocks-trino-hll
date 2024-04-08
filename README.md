@@ -8,16 +8,17 @@ RETURNS BIGINT
 properties (
     "symbol" = "org.hhhonzik.starrocks.TrinoHLLCardinality", 
     "type" = "StarrocksJar",
-    "file" = "https://github.com/hhhonzik/starrocks-trino-hll/releases/download/v0.0.7/starrocks_trino_hll-build-jar-with-dependencies.jar"
+    "file" = "https://github.com/hhhonzik/starrocks-trino-hll/releases/download/v0.0.8/starrocks_trino_hll-build-jar-with-dependencies.jar"
 );
 ```
 ```sql
 CREATE GLOBAL AGGREGATE FUNCTION MERGE(STRING)
 RETURNS STRING
 properties (
+    "annalytic" = "true", 
     "symbol" = "org.hhhonzik.starrocks.TrinoHLLMerge", 
     "type" = "StarrocksJar",
-    "file" = "https://github.com/hhhonzik/starrocks-trino-hll/releases/download/v0.0.7/starrocks_trino_hll-build-jar-with-dependencies.jar"
+    "file" = "https://github.com/hhhonzik/starrocks-trino-hll/releases/download/v0.0.8/starrocks_trino_hll-build-jar-with-dependencies.jar"
 );
 ```
 
