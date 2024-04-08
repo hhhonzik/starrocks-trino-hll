@@ -61,6 +61,20 @@ public class TrinoHLLMerge {
         return Base64.getEncoder().encodeToString(state.hll.serialize().getBytes());
     }
 
+
+    public void reset(State state) {
+        state.hll = HyperLogLog.newInstance(standardErrorToBuckets(DEFAULT_STANDARD_ERROR));
+    }
+
+    public void windowUpdate(State state,
+                            int peer_group_start, int peer_group_end,
+                            int frame_start, int frame_end,
+                            String[] inputs) {
+        for (int i = (int)frame_start; i < (int)frame_end; ++i) {
+            this.update(state, inputs[i]);
+        }
+    }
+
     // taken from prestodb/presto
     public static final double DEFAULT_STANDARD_ERROR = 0.01625;
 
